@@ -21,6 +21,7 @@ jobs:
       - name: Test container
         run: docker-compose up --build --abort-on-container-exit
   Deploy:
+    needs: Build
     runs-on: ubuntu-latest
     steps:
       - name: Log in to Docker Hub
@@ -38,3 +39,5 @@ jobs:
         with:
           context: ._
           push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

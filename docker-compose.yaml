@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cats-dogs-api
+    command: main:app --host 0.0.0.0 --port 80 --workers 1
+    expose:
+      - 80
+
+  api-tests:
+    build:
+      context: .
+      dockerfile: test-Dockerfile
+    image: cats-dogs-api-test
+    command: dockerize
+        -wait tcp://api:80 -timeout 20s
+        bash -c "pytest /test/v1"
+    environment:
+      APP_URL: http://api:80
+    depends_on:
+      - api

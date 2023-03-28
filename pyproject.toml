@@ -1,0 +1,55 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cats-dogs-api"
+version = "1.0.0"
+description = "Cats and Dogs Prediciton API"
+dependencies = []
+
+[project.optional-dependencies]
+test = [
+    "pytest >=7.1.3,<8.0.0",
+    "coverage[toml] >=6.5.0,<8.0",
+    "boto3 >=1.18.30",
+    "moto >=4.1.3,<5.0",
+]
+
+lint = [
+    "ruff == 0.0.246",
+    "black == 23.1.0",
+    "isort >=5.12.0,<6.0.0"
+]
+
+
+[tool.ruff]
+line-length = 120
+
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "C",    # flake8-comprehensions
+    "B",    # flake8-bugbear
+    "ANN",  # flake8-annotations
+    "PTH",  # flake8-use-pathlib
+    "SIM",  # flake8-simplify
+]
+
+ignore = [
+    "ANN002",  # missing-type-args
+    "ANN003",  # missing-type-kwargs
+    "ANN101",  # missing-type-self
+    "ANN102",  # missing-type-cls
+    "ANN401",  # any-type
+]
+
+exclude = ["test"]
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+line_length = 120
+profile = "black"

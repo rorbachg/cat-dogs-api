@@ -2,26 +2,26 @@ name: Cats and Dogs API Build
 run-name: CI/CD
 on: [push]
 jobs:
-  # Build:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Check out repository code
-  #       uses: actions/checkout@v3
-  #     - name: Set up Python
-  #       uses: actions/setup-python@v4
-  #       with:
-  #         python-version: 3.9
-  #     - name: Install dependencies
-  #       run: |
-  #         python -m pip install --upgrade pip
-  #         pip install ruff black isort
-  #     - name: Lint
-  #       run: |
-  #         ./lint.sh
-  #     - name: Test container
-  #       run: docker-compose up --build --abort-on-container-exit
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff black isort
+      - name: Lint
+        run: |
+          ./lint.sh
+      - name: Test container
+        run: docker-compose up --build --abort-on-container-exit
   Deploy:
-    # needs: Build
+    needs: Build
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
